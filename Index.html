@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Determinantes de la Pobreza en Ecuador</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 1000px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #1e3a8a; text-align: center; margin-bottom: 5px; }
+        p.subtitle { text-align: center; color: #6b7280; font-size: 1.1em; margin-bottom: 30px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .card { background: #f8fafc; border-left: 5px solid #2563eb; padding: 15px; border-radius: 8px; }
+        .card h3 { margin: 0; font-size: 0.9em; color: #64748b; }
+        .card p { margin: 5px 0 0 0; font-size: 1.5em; font-weight: bold; color: #1e293b; }
+        .chart-container { position: relative; margin: auto; height: 350px; width: 100%; margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Determinantes de la Pobreza en Ecuador</h1>
+        <p class="subtitle">Análisis Econométrico mediante Modelos Logit y Probit (ENEMDU)</p>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Modelo Principal</h3>
+                <p>Logit / Probit</p>
+            </div>
+            <div class="card">
+                <h3>Fuente de Datos</h3>
+                <p>ENEMDU Ecuador</p>
+            </div>
+            <div class="card">
+                <h3>Variable Dependiente</h3>
+                <p>Pobreza (1 / 0)</p>
+            </div>
+        </div>
+
+        <h2>Efectos Marginales Estimados</h2>
+        <div class="chart-container">
+            <canvas id="marginalChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('marginalChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Años de Educación', 'Jefe de Hogar Hombre', 'Área Urbana', 'Edad del Jefe'],
+                datasets: [{
+                    label: 'Efecto Marginal sobre Probabilidad de Pobreza',
+                    data: [-0.045, -0.021, -0.083, 0.002],
+                    backgroundColor: [
+                        'rgba(37, 99, 235, 0.7)',
+                        'rgba(37, 99, 235, 0.7)',
+                        'rgba(37, 99, 235, 0.7)',
+                        'rgba(220, 38, 38, 0.7)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
